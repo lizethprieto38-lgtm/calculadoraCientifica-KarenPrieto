@@ -17,41 +17,41 @@ let m = {
         for (let i = 0; i < p.teclas.length; i++) {
             p.teclas[i].addEventListener("click", m.oprimirtecla)
         }
-        document.addEventListener("keydown", function(e){
+        document.addEventListener("keydown", function (e) {
             let tecla = e.key;
 
-            if(!isNaN(tecla)){
+            if (!isNaN(tecla)) {
                 m.calculadora("numero", tecla);
             }
 
-            else if(["+", "-", "*", "/"].includes(tecla)){
-            m.calculadora("simbolo", tecla);
-        }
-
-            else if(tecla == "."){
-            m.calculadora("numero", tecla);
-
-        }
-        else if(tecla == "Enter"){
-
-            m.calculadora("igual", "=");
-
-        }
-        else if(tecla == "Backspace"){
-
-            p.operaciones.innerHTML =
-            p.operaciones.innerHTML.slice(0, -1);
-
-            if(p.operaciones.innerHTML == ""){
-                p.operaciones.innerHTML = "0";
+            else if (["+", "-", "*", "/"].includes(tecla)) {
+                m.calculadora("simbolo", tecla);
             }
 
-        }
-        else if(tecla == "Escape"){
+            else if (tecla == ".") {
+                m.calculadora("numero", tecla);
 
-            m.borrarCalculadora();
- }
-    });
+            }
+            else if (tecla == "Enter") {
+
+                m.calculadora("igual", "=");
+
+            }
+            else if (tecla == "Backspace") {
+
+                p.operaciones.innerHTML =
+                    p.operaciones.innerHTML.slice(0, -1);
+
+                if (p.operaciones.innerHTML == "") {
+                    p.operaciones.innerHTML = "0";
+                }
+
+            }
+            else if (tecla == "Escape") {
+
+                m.borrarCalculadora();
+            }
+        });
     },
     oprimirtecla: function (tecla) {
         p.accion = tecla.target.getAttribute("class");
@@ -79,7 +79,7 @@ let m = {
                 break;
 
             case "simbolo":
-                p.cantisignos ++;
+                p.cantisignos++;
                 if (p.cantisignos == 1) {
 
                     if (p.operaciones.innerHTML == 0) {
@@ -90,27 +90,27 @@ let m = {
                     }
                 }
                 //console.log("simbolo");
-                
+
                 break;
 
             case "decimal":
-                if(!p.operaciones){
+                if (!p.operaciones) {
                     p.operaciones.innerHTML += digito;
                     p.cantidecimal = true;
                 }
                 //console.log("decimal");
-                
+
                 break;
 
             case "igual":
                 if (p.operaciones.innerHTML.includes("/0")) {
                     p.operaciones.innerHTML = "No se puede dividir ";
-                }else{
+                } else {
                     p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
                     p.resultado = true;
                 }
-                break; 
-            
+                break;
+
             case "raiz":
                 if (p.operaciones.innerHTML === "0") return;
 
@@ -137,7 +137,7 @@ let m = {
 
             case "cos":
                 let vCos = parseFloat(p.operaciones.innerHTML);
-                        
+
                 if (!isNaN(vCos)) {
                     let rad = vCos * (Math.PI / 180);
                     p.operaciones.innerHTML = Math.cos(rad);
@@ -146,9 +146,9 @@ let m = {
                     p.operaciones.innerHTML = "Error";
                 }
                 break;
-            
-
-
+            case "potencia":
+                p.operaciones.innerHTML += "**";
+                break;
         }
     },
     borrarCalculadora: function () {
