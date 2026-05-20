@@ -24,40 +24,27 @@ let m = {
             if (!isNaN(tecla)) {
                 m.calculadora("numero", tecla);
             }
-
             else if (["+", "-", "*", "/"].includes(tecla)) {
-
                 m.calculadora("simbolo", tecla);
             }
-
             else if (tecla == ".") {
-
                 m.calculadora("numero", tecla);
-
             }
             else if (tecla == "Enter") {
-
                 m.calculadora("igual", "=");
-
             }
             else if (tecla == "Backspace") {
-
                 p.operaciones.innerHTML =
                     p.operaciones.innerHTML.slice(0, -1);
 
                 if (p.operaciones.innerHTML == "") {
                     p.operaciones.innerHTML = "0";
                 }
-
             }
             else if (tecla == "Escape") {
-
                 m.borrarCalculadora();
-
             }
-
         });
-
     },
     oprimirtecla: function (tecla) {
         p.accion = tecla.target.getAttribute("class");
@@ -109,10 +96,14 @@ let m = {
                 break;
 
             case "igual":
-                //console.log("igual");
-                p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
-                p.resultado = true;
+                if (p.operaciones.innerHTML.includes("/0")) {
+                    p.operaciones.innerHTML = "No se puede dividir ";
+                }else{
+                    p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
+                    p.resultado = true;
+                }
                 break;
+
         }
     },
     borrarCalculadora: function () {
