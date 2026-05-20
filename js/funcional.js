@@ -123,11 +123,33 @@ let m = {
                     p.operaciones.innerHTML = "Error";
                 }
                 break;
+            case "sin":
+                let vSin = parseFloat(p.operaciones.innerHTML);
 
+                if (!isNaN(vSin)) {
+                    let rad = vSin * (Math.PI / 180);
+                    p.operaciones.innerHTML = Math.sin(rad);
+                    p.resultado = true;
+                } else {
+                    p.operaciones.innerHTML = "Error";
+                }
+                break;
+
+            case "cos":
+                let vCos = parseFloat(p.operaciones.innerHTML);
+                        
+                if (!isNaN(vCos)) {
+                    let rad = vCos * (Math.PI / 180);
+                    p.operaciones.innerHTML = Math.cos(rad);
+                    p.resultado = true;
+                } else {
+                    p.operaciones.innerHTML = "Error";
+                }
+                break;
             
 
 
-            }
+        }
     },
     borrarCalculadora: function () {
         p.operaciones.innerHTML = 0;
