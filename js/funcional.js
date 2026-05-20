@@ -17,6 +17,47 @@ let m = {
         for (let i = 0; i < p.teclas.length; i++) {
             p.teclas[i].addEventListener("click", m.oprimirtecla)
         }
+
+        document.addEventListener("keydown", function (e) {
+            let tecla = e.key;
+
+            if (!isNaN(tecla)) {
+                m.calculadora("numero", tecla);
+            }
+
+            else if (["+", "-", "*", "/"].includes(tecla)) {
+
+                m.calculadora("simbolo", tecla);
+            }
+
+            else if (tecla == ".") {
+
+                m.calculadora("numero", tecla);
+
+            }
+            else if (tecla == "Enter") {
+
+                m.calculadora("igual", "=");
+
+            }
+            else if (tecla == "Backspace") {
+
+                p.operaciones.innerHTML =
+                    p.operaciones.innerHTML.slice(0, -1);
+
+                if (p.operaciones.innerHTML == "") {
+                    p.operaciones.innerHTML = "0";
+                }
+
+            }
+            else if (tecla == "Escape") {
+
+                m.borrarCalculadora();
+
+            }
+
+        });
+
     },
     oprimirtecla: function (tecla) {
         p.accion = tecla.target.getAttribute("class");
@@ -44,7 +85,7 @@ let m = {
                 break;
 
             case "simbolo":
-                p.cantisignos ++;
+                p.cantisignos++;
                 if (p.cantisignos == 1) {
 
                     if (p.operaciones.innerHTML == 0) {
@@ -55,16 +96,16 @@ let m = {
                     }
                 }
                 //console.log("simbolo");
-                
+
                 break;
 
             case "decimal":
-                if(!p.operaciones){
+                if (!p.operaciones) {
                     p.operaciones.innerHTML += digito;
                     p.cantidecimal = true;
                 }
                 //console.log("decimal");
-                
+
                 break;
 
             case "igual":
