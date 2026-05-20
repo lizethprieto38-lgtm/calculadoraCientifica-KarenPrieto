@@ -17,34 +17,41 @@ let m = {
         for (let i = 0; i < p.teclas.length; i++) {
             p.teclas[i].addEventListener("click", m.oprimirtecla)
         }
-
-        document.addEventListener("keydown", function (e) {
+        document.addEventListener("keydown", function(e){
             let tecla = e.key;
 
-            if (!isNaN(tecla)) {
+            if(!isNaN(tecla)){
                 m.calculadora("numero", tecla);
             }
-            else if (["+", "-", "*", "/"].includes(tecla)) {
-                m.calculadora("simbolo", tecla);
-            }
-            else if (tecla == ".") {
-                m.calculadora("numero", tecla);
-            }
-            else if (tecla == "Enter") {
-                m.calculadora("igual", "=");
-            }
-            else if (tecla == "Backspace") {
-                p.operaciones.innerHTML =
-                    p.operaciones.innerHTML.slice(0, -1);
 
-                if (p.operaciones.innerHTML == "") {
-                    p.operaciones.innerHTML = "0";
-                }
+            else if(["+", "-", "*", "/"].includes(tecla)){
+            m.calculadora("simbolo", tecla);
+        }
+
+            else if(tecla == "."){
+            m.calculadora("numero", tecla);
+
+        }
+        else if(tecla == "Enter"){
+
+            m.calculadora("igual", "=");
+
+        }
+        else if(tecla == "Backspace"){
+
+            p.operaciones.innerHTML =
+            p.operaciones.innerHTML.slice(0, -1);
+
+            if(p.operaciones.innerHTML == ""){
+                p.operaciones.innerHTML = "0";
             }
-            else if (tecla == "Escape") {
-                m.borrarCalculadora();
-            }
-        });
+
+        }
+        else if(tecla == "Escape"){
+
+            m.borrarCalculadora();
+ }
+    });
     },
     oprimirtecla: function (tecla) {
         p.accion = tecla.target.getAttribute("class");
@@ -72,7 +79,7 @@ let m = {
                 break;
 
             case "simbolo":
-                p.cantisignos++;
+                p.cantisignos ++;
                 if (p.cantisignos == 1) {
 
                     if (p.operaciones.innerHTML == 0) {
@@ -83,16 +90,16 @@ let m = {
                     }
                 }
                 //console.log("simbolo");
-
+                
                 break;
 
             case "decimal":
-                if (!p.operaciones) {
+                if(!p.operaciones){
                     p.operaciones.innerHTML += digito;
                     p.cantidecimal = true;
                 }
                 //console.log("decimal");
-
+                
                 break;
 
             case "igual":
@@ -102,9 +109,25 @@ let m = {
                     p.operaciones.innerHTML = eval(p.operaciones.innerHTML);
                     p.resultado = true;
                 }
+                break; 
+            
+            case "raiz":
+                if (p.operaciones.innerHTML === "0") return;
+
+                let valor = parseFloat(p.operaciones.innerHTML);
+
+                if (!isNaN(valor)) {
+                    p.operaciones.innerHTML = Math.sqrt(valor);
+                    p.resultado = true;
+                } else {
+                    p.operaciones.innerHTML = "Error";
+                }
                 break;
 
-        }
+            
+
+
+            }
     },
     borrarCalculadora: function () {
         p.operaciones.innerHTML = 0;

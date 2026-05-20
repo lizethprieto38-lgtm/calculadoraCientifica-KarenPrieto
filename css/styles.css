@@ -112,3 +112,11 @@ li:hover{
     background: #ebafeb;
     transform: scale(1.03);
 }
+.raiz{
+    background: #c18deb;
+}
+
+.raiz:hover{
+    background: #340649;
+
+}
